@@ -50,3 +50,8 @@ Find-Module -Name "*hyper*" -Tag DSC
 #install a DSC module
 Install-Module -Name xHyper-V
 #----------------------------------------------------------------------
+#Remove all mof files (pending,current,backup,MetaConfig.mof,caches,etc)
+rm C:\windows\system32\Configuration\*.mof*
+#Kill the LCM/DSC processes
+gps wmi* | ? {$_.modules.ModuleName -like "*DSC*"} | stop-process -force
+#----------------------------------------------------------------------

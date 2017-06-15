@@ -46,10 +46,12 @@ Invoke-Command -Session $sessions -FilePath "C:\Users\jake\Desktop\RemoteInfo.ps
 #have to associate HTTPS listener with certificate to support SSL
 ls CERT:\LocalMachine\My
 Get-ChildItem WSMan:\localhost\Listener
+
+$ip = "10.0.200.54"
 #have to add remote host to trusted hosts on local management device
-Set-Item WSMan:\localhost\Client\TrustedHosts -Value "fqdn-of-hyper-v-host"
-#have to establish connection to device using custom session options
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value $ip
 $creds = Get-Credential
+#have to establish connection to device using custom session options
 $so = New-PSSessionOption -SkipCNCheck -SkipCACheck -SkipRevocationCheck
-Enter-PSSession -ComputerName 10.0.3.50 -UseSSL -SessionOption $so -Credential $creds
+Enter-PSSession -ComputerName $ip -UseSSL -SessionOption $so -Credential $creds
 #-----------------------------------------------------------
