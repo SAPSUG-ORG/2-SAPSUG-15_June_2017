@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "ps1" do |ps1|
+    ps1.vm.box = "invisibleaxm/centos7"
+    ps1.vm.hostname = 'ps1.local'
+    ps1.vm.provider "hyperv" do |h|
+      h.memory = "512"
+      h.vmname = "ps1"
+      h.cpus = "1"
+    end
+  end
+end
